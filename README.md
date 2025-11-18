@@ -1,7 +1,8 @@
 # Android AR
 
+## Project Settings
 
 ### Editor version
 ```
-6000.2.10f1
+6000.0.65f1
 ```
