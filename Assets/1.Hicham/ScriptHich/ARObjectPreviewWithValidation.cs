@@ -11,73 +11,67 @@ public class ARObjectPreviewWithValidation : MonoBehaviour
     public ARRaycastManager raycastManager;
     public ObjectSpawner objectSpawner;
 
-    [Header("Reticle & UI")]
-    public GameObject reticle;           // Référence au reticle
-    public GameObject validateButton;    // Référence au bouton Valider
+    [Header("UI")]
+    public GameObject validateButton;
+    public GameObject cancelButton;
+
+    [Header("Reticle")]
+    public GameObject reticle;
 
     private GameObject previewObject;
     private List<ARRaycastHit> hits = new List<ARRaycastHit>();
+
+    private bool surfaceFound = false;
     private bool waitingForValidation = false;
 
-    // Position et rotation figées pour l'objet final
     private Vector3 savedPosition;
     private Quaternion savedRotation;
 
     void Start()
     {
+        // Cacher boutons au départ
         if (validateButton != null)
         {
             validateButton.SetActive(false);
             validateButton.GetComponent<Button>().onClick.AddListener(OnValidateButtonClicked);
         }
+
+        if (cancelButton != null)
+        {
+            cancelButton.SetActive(false);
+            cancelButton.GetComponent<Button>().onClick.AddListener(OnCancelButtonClicked);
+        }
     }
 
     void Update()
     {
-        // Mise à jour de la preview uniquement si on n'attend pas la validation
         if (!waitingForValidation)
             UpdatePreview();
 
-        // Détecte le touch pour commencer la validation, uniquement si la preview est active sur une surface
-        if (!waitingForValidation && previewObject != null && previewObject.activeSelf && hits.Count > 0)
-        {
-#if UNITY_EDITOR
-            if (Input.GetMouseButtonDown(0))
-                StartValidation();
-#else
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-                StartValidation();
-#endif
-        }
+        DetectTap();
     }
 
-    void UpdatePreview()
+    private void UpdatePreview()
     {
-        // Si on attend la validation, on fige la preview
-        if (waitingForValidation)
-        {
-            if (previewObject != null)
-                previewObject.transform.SetPositionAndRotation(savedPosition, savedRotation);
-            return; // On sort pour ne pas suivre le reticle
-        }
-
         Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
 
         if (raycastManager.Raycast(screenCenter, hits, TrackableType.PlaneWithinPolygon))
         {
             Pose hitPose = hits[0].pose;
+            surfaceFound = true;
 
             GameObject prefab = objectSpawner.objectPrefabs[objectSpawner.spawnOptionIndex];
 
-            if (previewObject == null || previewObject.name != prefab.name + "_Preview")
+            // Créer preview si nécessaire
+            if (previewObject == null || previewObject.name != prefab.name + "(Preview)")
             {
                 if (previewObject != null)
                     Destroy(previewObject);
 
-                previewObject = Instantiate(prefab);
-                previewObject.name = prefab.name + "_Preview";
+                previewObject = Instantiate(prefab, hitPose.position, hitPose.rotation);
+                previewObject.name = prefab.name + "(Preview)";
 
-                // Désactiver interactions physiques
+                // Preview = pas d’interactions
                 foreach (Collider c in previewObject.GetComponentsInChildren<Collider>())
                     c.enabled = false;
                 foreach (Rigidbody rb in previewObject.GetComponentsInChildren<Rigidbody>())
@@ -85,60 +79,79 @@ public class ARObjectPreviewWithValidation : MonoBehaviour
             }
 
             previewObject.transform.SetPositionAndRotation(hitPose.position, hitPose.rotation);
-            previewObject.SetActive(true);
 
-            if (!reticle.activeSelf)
-                reticle.SetActive(true);
+            if (!previewObject.activeSelf) previewObject.SetActive(true);
+            if (!reticle.activeSelf) reticle.SetActive(true);
         }
         else
         {
-            if (previewObject)
-                previewObject.SetActive(false);
-            if (reticle.activeSelf)
-                reticle.SetActive(false);
+            surfaceFound = false;
+
+            if (previewObject) previewObject.SetActive(false);
+            if (reticle.activeSelf) reticle.SetActive(false);
         }
     }
 
-    void StartValidation()
+    private void DetectTap()
+    {
+        if (!surfaceFound || waitingForValidation)
+            return;
+
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            StartValidation();
+        }
+    }
+
+    private void StartValidation()
     {
         if (previewObject == null) return;
 
         waitingForValidation = true;
 
-        // Figer la preview à la position et rotation actuelles
         savedPosition = previewObject.transform.position;
         savedRotation = previewObject.transform.rotation;
 
-        // Optionnel : rendre la preview semi-transparente
         SetPreviewTransparency(0.5f);
 
-        if (validateButton != null)
-            validateButton.SetActive(true);
-
-        if (reticle.activeSelf)
-            reticle.SetActive(false);
+        if (validateButton != null) validateButton.SetActive(true);
+        if (cancelButton != null) cancelButton.SetActive(true);
+        if (reticle.activeSelf) reticle.SetActive(false);
     }
 
-    void OnValidateButtonClicked()
+    private void OnValidateButtonClicked()
     {
         if (previewObject == null) return;
 
-        // Instancier l'objet final à la position sauvegardée
-        GameObject prefab = objectSpawner.objectPrefabs[objectSpawner.spawnOptionIndex];
-        Instantiate(prefab, savedPosition, savedRotation);
+        // Poser l’objet final
+        objectSpawner.TrySpawnObject(savedPosition, Vector3.up);
 
         Destroy(previewObject);
         previewObject = null;
+
+        validateButton.SetActive(false);
+        cancelButton.SetActive(false);
         waitingForValidation = false;
 
-        if (validateButton != null)
-            validateButton.SetActive(false);
-
-        if (!reticle.activeSelf)
-            reticle.SetActive(true);
+        if (!reticle.activeSelf) reticle.SetActive(true);
     }
 
-    void SetPreviewTransparency(float alpha)
+    private void OnCancelButtonClicked()
+    {
+        if (previewObject != null)
+        {
+            Destroy(previewObject);
+            previewObject = null;
+        }
+
+        waitingForValidation = false;
+
+        if (validateButton != null) validateButton.SetActive(false);
+        if (cancelButton != null) cancelButton.SetActive(false);
+        if (!reticle.activeSelf) reticle.SetActive(true);
+    }
+
+    private void SetPreviewTransparency(float alpha)
     {
         if (previewObject == null) return;
 
@@ -155,6 +168,7 @@ public class ARObjectPreviewWithValidation : MonoBehaviour
                 m.SetInt("_ZWrite", 0);
                 m.DisableKeyword("_ALPHATEST_ON");
                 m.EnableKeyword("_ALPHABLEND_ON");
+                m.DisableKeyword("_ALPHAPREMULTIPLY_ON");
                 m.renderQueue = 3000;
             }
         }
