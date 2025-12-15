@@ -7,6 +7,8 @@ public class InformationUiButton : MonoBehaviour
 
     [SerializeField]
     GameObject UiPanelInformation;
+
+    GameObject theCreation;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,7 +24,12 @@ public class InformationUiButton : MonoBehaviour
 
     public void buttonPressed()
     {
-        GameObject theCreation = Instantiate(UiPanelInformation, cameraInformation.targetGo.transform);
+        if (theCreation)
+        {
+            Destroy(theCreation);
+            theCreation = null;
+        }
+        theCreation = Instantiate(UiPanelInformation, cameraInformation.targetGo.transform);
         explainationData theDataGame = cameraInformation.targetGo.GetComponent<explainationData>();
         theCreation.GetComponent<UITextControl>().display(theDataGame.title, theDataGame.description);
     }
