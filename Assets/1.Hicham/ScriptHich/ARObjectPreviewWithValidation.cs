@@ -1,141 +1,124 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
 public class ARObjectPreviewWithValidation : MonoBehaviour
 {
-    [Header("AR")]
+    [Header("AR References")]
     public ARRaycastManager raycastManager;
     public ObjectSpawner objectSpawner;
 
-    [Header("UI")]
-    public GameObject reticle;
-    public GameObject validateButton;
-    public GameObject cancelButton;
+    [Header("UI & Reticle")]
+    public GameObject reticle;           // Reticle dans la scène
+    public Button validateButton;        // Bouton Valider
+    public GameObject inventoryUI;       // Panel inventaire
+    public Button[] inventoryButtons;    // Boutons d’objet à sélectionner
 
     private GameObject previewObject;
     private List<ARRaycastHit> hits = new List<ARRaycastHit>();
-
-    private bool waitingForValidation = false;
-
-    private Vector3 savedPosition;
-    private Quaternion savedRotation;
+    private GameObject selectedPrefab = null;
 
     void Start()
     {
-        validateButton.SetActive(false);
-        cancelButton.SetActive(false);
+        // Le bouton Valider commence désactivé
+        if (validateButton != null)
+        {
+            validateButton.gameObject.SetActive(false);
+            validateButton.onClick.AddListener(OnValidateButtonClicked);
+        }
 
-        validateButton.GetComponent<Button>()
-            .onClick.AddListener(OnValidate);
+        // Afficher inventaire au démarrage
+        if (inventoryUI != null)
+            inventoryUI.SetActive(true);
 
-        cancelButton.GetComponent<Button>()
-            .onClick.AddListener(OnCancel);
+        // Associer chaque bouton de l’inventaire à la sélection d’un objet
+        foreach (Button btn in inventoryButtons)
+            btn.onClick.AddListener(() => OnSelectInventoryObject(btn));
+
+        if (reticle != null)
+            reticle.SetActive(false);
     }
 
     void Update()
     {
-        if (!waitingForValidation)
+        // Si aucun objet sélectionné, cacher preview, reticle et bouton Valider
+        if (selectedPrefab == null)
         {
-            UpdatePreview();
-            DetectTouchToFreeze();
+            if (previewObject != null)
+                previewObject.SetActive(false);
+            if (reticle != null)
+                reticle.SetActive(false);
+            if (validateButton != null)
+                validateButton.gameObject.SetActive(false);
+            return;
         }
+
+        UpdatePreview();
     }
 
-    // ---------------- PREVIEW ----------------
     void UpdatePreview()
     {
         Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
 
-        if (!raycastManager.Raycast(screenCenter, hits, TrackableType.PlaneWithinPolygon))
+        if (raycastManager.Raycast(screenCenter, hits, TrackableType.PlaneWithinPolygon))
         {
-            if (previewObject) previewObject.SetActive(false);
-            reticle.SetActive(false);
-            return;
+            Pose hitPose = hits[0].pose;
+
+            if (previewObject == null)
+            {
+                previewObject = Instantiate(selectedPrefab);
+                previewObject.name = selectedPrefab.name + "_Preview";
+
+                // Désactiver interactions physiques
+                foreach (Collider c in previewObject.GetComponentsInChildren<Collider>())
+                    c.enabled = false;
+                foreach (Rigidbody rb in previewObject.GetComponentsInChildren<Rigidbody>())
+                    rb.isKinematic = true;
+            }
+
+            previewObject.transform.SetPositionAndRotation(hitPose.position, hitPose.rotation);
+            previewObject.SetActive(true);
+
+            if (reticle != null && !reticle.activeSelf)
+                reticle.SetActive(true);
+
+            // Afficher le bouton Valider uniquement si surface détectée
+            if (validateButton != null && !validateButton.gameObject.activeSelf)
+                validateButton.gameObject.SetActive(true);
         }
-
-        Pose hitPose = hits[0].pose;
-        reticle.SetActive(true);
-
-        if (previewObject == null)
-            CreatePreview();
-
-        previewObject.SetActive(true);
-        previewObject.transform.SetPositionAndRotation(hitPose.position, hitPose.rotation);
+        else
+        {
+            if (previewObject != null)
+                previewObject.SetActive(false);
+            if (reticle != null && reticle.activeSelf)
+                reticle.SetActive(false);
+            if (validateButton != null && validateButton.gameObject.activeSelf)
+                validateButton.gameObject.SetActive(false);
+        }
     }
 
-    void CreatePreview()
+    void OnSelectInventoryObject(Button btn)
     {
-#if UNITY_EDITOR
-        if (!Application.isPlaying) return; // NE RIEN FAIRE en Edit Mode
-#endif
+        int index = System.Array.IndexOf(inventoryButtons, btn);
+        if (index >= 0 && index < objectSpawner.objectPrefabs.Count)
+        {
+            selectedPrefab = objectSpawner.objectPrefabs[index];
 
-        GameObject prefab = objectSpawner.objectPrefabs[objectSpawner.spawnOptionIndex];
-        if (prefab == null) return; // sécurité
-
-        previewObject = Instantiate(prefab);
-        previewObject.name = prefab.name + "_Preview";
-
-        foreach (Collider c in previewObject.GetComponentsInChildren<Collider>())
-            c.enabled = false;
-
-        foreach (Rigidbody rb in previewObject.GetComponentsInChildren<Rigidbody>())
-            rb.isKinematic = true;
+            // Cacher le panel inventaire une fois un objet choisi
+            if (inventoryUI != null)
+                inventoryUI.SetActive(false);
+        }
     }
 
-
-    // ---------------- FREEZE ----------------
-    void DetectTouchToFreeze()
+    void OnValidateButtonClicked()
     {
-#if UNITY_EDITOR
-        if (!Input.GetMouseButtonDown(0)) return;
-#else
-        if (Input.touchCount == 0 || Input.GetTouch(0).phase != TouchPhase.Began) return;
-#endif
+        if (previewObject == null || selectedPrefab == null)
+            return;
 
-        if (previewObject == null || !previewObject.activeSelf) return;
-
-        waitingForValidation = true;
-
-        savedPosition = previewObject.transform.position;
-        savedRotation = previewObject.transform.rotation;
-
-        previewObject.transform.SetPositionAndRotation(savedPosition, savedRotation);
-
-        validateButton.SetActive(true);
-        cancelButton.SetActive(true);
-        reticle.SetActive(false);
-    }
-
-    // ---------------- VALIDATE ----------------
-    void OnValidate()
-    {
-        GameObject prefab = objectSpawner.objectPrefabs[objectSpawner.spawnOptionIndex];
-        Instantiate(prefab, savedPosition, savedRotation);
-
-        ResetState();
-    }
-
-    // ---------------- CANCEL ----------------
-    void OnCancel()
-    {
-        ResetState();
-    }
-
-    // ---------------- RESET ----------------
-    void ResetState()
-    {
-        if (previewObject)
-            Destroy(previewObject);
-
-        previewObject = null;
-        waitingForValidation = false;
-
-        validateButton.SetActive(false);
-        cancelButton.SetActive(false);
-        reticle.SetActive(true);
+        // Instancier l'objet final à la position de la preview
+        Instantiate(selectedPrefab, previewObject.transform.position, previewObject.transform.rotation);
     }
 }
