@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
@@ -21,7 +21,7 @@ public class ARObjectPlacement : MonoBehaviour
     public Button[] inventoryButtons;
 
     [Header("Preview Manipulation Settings")]
-    [Tooltip("Sensibilité de la rotation")]
+    [Tooltip("SensibilitÃ© de la rotation")]
     public float rotationSpeed = 0.5f;
     [Tooltip("Scale minimum")]
     public float minScale = 0.5f;
@@ -36,7 +36,7 @@ public class ARObjectPlacement : MonoBehaviour
 
     void Start()
     {
-        // Menu visible au démarrage
+        // Menu visible au dÃ©marrage
         if (objectMenuUI != null)
         {
             objectMenuUI.SetActive(true);
@@ -68,11 +68,11 @@ public class ARObjectPlacement : MonoBehaviour
 
     void Update()
     {
-        // Si aucun objet sélectionné, rien ne faire
+        // Si aucun objet sÃ©lectionnÃ©, rien ne faire
         if (selectedPrefab == null)
             return;
 
-        // Mise à jour de la preview
+        // Mise Ã  jour de la preview
         if (!waitingForValidation)
             UpdatePreview();
     }
@@ -90,7 +90,7 @@ public class ARObjectPlacement : MonoBehaviour
                 previewObject = Instantiate(selectedPrefab);
                 previewObject.name = selectedPrefab.name + "_Preview";
 
-                // Désactiver collisions physiques initialement
+                // DÃ©sactiver collisions physiques initialement
                 foreach (Collider c in previewObject.GetComponentsInChildren<Collider>())
                     c.enabled = false;
 
@@ -101,7 +101,7 @@ public class ARObjectPlacement : MonoBehaviour
                 manipulator.maxScale = maxScale;
             }
 
-            // Position + rotation au centre de l'écran
+            // Position + rotation au centre de l'Ã©cran
             previewObject.transform.SetPositionAndRotation(hitPose.position, hitPose.rotation);
             previewObject.SetActive(true);
 
@@ -135,7 +135,7 @@ public class ARObjectPlacement : MonoBehaviour
     {
         if (previewObject == null) return;
 
-        // Restaurer les matériaux et supprimer le manipulateur
+        // Restaurer les matÃ©riaux et supprimer le manipulateur
         ARPreviewManipulator manipulator = previewObject.GetComponent<ARPreviewManipulator>();
         if (manipulator != null)
         {
@@ -150,7 +150,7 @@ public class ARObjectPlacement : MonoBehaviour
         Rigidbody rb = previewObject.GetComponent<Rigidbody>();
         if (rb != null) rb.isKinematic = false;
 
-        // Laisser l'objet tel quel et réinitialiser
+        // Laisser l'objet tel quel et rÃ©initialiser
         previewObject.name = previewObject.name.Replace("_Preview", "");
         previewObject = null;
         waitingForValidation = false;
@@ -158,7 +158,7 @@ public class ARObjectPlacement : MonoBehaviour
         if (validateButton != null) validateButton.gameObject.SetActive(false);
         if (!reticle.activeSelf) reticle.SetActive(true);
 
-        // Plus d'objet sélectionné
+        // Plus d'objet sÃ©lectionnÃ©
         selectedPrefab = null;
     }
 }

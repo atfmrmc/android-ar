@@ -697,7 +697,14 @@ MonoBehaviour:
   reticle: {fileID: 827532398}
   validateButton: {fileID: 1130907899}
   inventoryUI: {fileID: 72989974}
-  inventoryButtons: []
+  inventoryButtons:
+  - {fileID: 817813618}
+  - {fileID: 274237799}
+  - {fileID: 2116170433}
+  - {fileID: 145380980}
+  - {fileID: 1441072526}
+  - {fileID: 1088608627}
+  - {fileID: 232260063}
 --- !u!4 &212473302
 Transform:
   m_ObjectHideFlags: 0
@@ -3627,7 +3634,7 @@ GameObject:
   - component: {fileID: 902806533}
   - component: {fileID: 902806532}
   m_Layer: 0
-  m_Name: ARPreviewManager
+  m_Name: ARPreviewManipulator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3646,7 +3653,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 9.34
-  scaleSpeed: 1.46
   minScale: 3.71
   maxScale: 3
   previewColor: {r: 0.9716981, g: 0.041251317, b: 0.041251317, a: 0.7}
@@ -7245,15 +7251,8 @@ MonoBehaviour:
   validateButton: {fileID: 1130907899}
   objectMenuUI: {fileID: 72989974}
   openMenuButton: {fileID: 1059051469}
-  inventoryButtons:
-  - {fileID: 817813618}
-  - {fileID: 274237799}
-  - {fileID: 2116170433}
-  - {fileID: 145380980}
-  - {fileID: 1441072526}
-  - {fileID: 1088608627}
-  - {fileID: 232260063}
-  rotationSpeed: 0.5
+  inventoryButtons: []
+  rotationSpeed: 0.4
   minScale: 0.5
   maxScale: 3
 --- !u!1 &1756045394
@@ -9239,6 +9238,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3618575315330363742, guid: dae86721c71ee42018bbec0181a4e52e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8434199880437814388, guid: dae86721c71ee42018bbec0181a4e52e, type: 3}
+      propertyPath: m_Interactable
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

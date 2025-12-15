@@ -20,21 +20,22 @@ public class ARObjectPreviewWithValidation : MonoBehaviour
     private GameObject previewObject;
     private List<ARRaycastHit> hits = new List<ARRaycastHit>();
     private GameObject selectedPrefab = null;
+    private GameObject currentPreviewPrefab = null; // Prefab utilisé pour la preview actuelle
 
     void Start()
     {
-        // Le bouton Valider commence désactivé
+        // Valider désactivé au départ
         if (validateButton != null)
         {
             validateButton.gameObject.SetActive(false);
             validateButton.onClick.AddListener(OnValidateButtonClicked);
         }
 
-        // Afficher inventaire au démarrage
+        // Inventaire actif au départ
         if (inventoryUI != null)
             inventoryUI.SetActive(true);
 
-        // Associer chaque bouton de l’inventaire à la sélection d’un objet
+        // Associer chaque bouton à la sélection d’un objet
         foreach (Button btn in inventoryButtons)
             btn.onClick.AddListener(() => OnSelectInventoryObject(btn));
 
@@ -44,7 +45,7 @@ public class ARObjectPreviewWithValidation : MonoBehaviour
 
     void Update()
     {
-        // Si aucun objet sélectionné, cacher preview, reticle et bouton Valider
+        // Si aucun objet sélectionné, masquer tout
         if (selectedPrefab == null)
         {
             if (previewObject != null)
@@ -67,8 +68,11 @@ public class ARObjectPreviewWithValidation : MonoBehaviour
         {
             Pose hitPose = hits[0].pose;
 
-            if (previewObject == null)
+            // Recréer la preview si le prefab a changé ou si elle n'existe pas
+            if (previewObject == null || currentPreviewPrefab != selectedPrefab)
             {
+                if (previewObject != null) Destroy(previewObject);
+
                 previewObject = Instantiate(selectedPrefab);
                 previewObject.name = selectedPrefab.name + "_Preview";
 
@@ -77,6 +81,8 @@ public class ARObjectPreviewWithValidation : MonoBehaviour
                     c.enabled = false;
                 foreach (Rigidbody rb in previewObject.GetComponentsInChildren<Rigidbody>())
                     rb.isKinematic = true;
+
+                currentPreviewPrefab = selectedPrefab;
             }
 
             previewObject.transform.SetPositionAndRotation(hitPose.position, hitPose.rotation);
@@ -85,7 +91,6 @@ public class ARObjectPreviewWithValidation : MonoBehaviour
             if (reticle != null && !reticle.activeSelf)
                 reticle.SetActive(true);
 
-            // Afficher le bouton Valider uniquement si surface détectée
             if (validateButton != null && !validateButton.gameObject.activeSelf)
                 validateButton.gameObject.SetActive(true);
         }
@@ -110,6 +115,13 @@ public class ARObjectPreviewWithValidation : MonoBehaviour
             // Cacher le panel inventaire une fois un objet choisi
             if (inventoryUI != null)
                 inventoryUI.SetActive(false);
+
+            // Détruire la preview actuelle pour recréer la nouvelle
+            if (previewObject != null)
+            {
+                Destroy(previewObject);
+                previewObject = null;
+            }
         }
     }
 
@@ -120,5 +132,20 @@ public class ARObjectPreviewWithValidation : MonoBehaviour
 
         // Instancier l'objet final à la position de la preview
         Instantiate(selectedPrefab, previewObject.transform.position, previewObject.transform.rotation);
+
+        // Nettoyer preview
+        Destroy(previewObject);
+        previewObject = null;
+        currentPreviewPrefab = null;
+        selectedPrefab = null;
+
+        if (validateButton != null)
+            validateButton.gameObject.SetActive(false);
+        if (reticle != null)
+            reticle.SetActive(false);
+
+        // Inventaire peut réapparaître si besoin
+        if (inventoryUI != null)
+            inventoryUI.SetActive(true);
     }
 }

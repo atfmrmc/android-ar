@@ -1,9 +1,9 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class ARPreviewManipulator : MonoBehaviour
 {
     [Header("Manipulation Settings")]
-    public float rotationSpeed = 0.2f;  // Sensibilité rotation
+    public float rotationSpeed = 0.2f;  // Sensibilitï¿½ rotation
     public float minScale = 0.5f;
     public float maxScale = 3f;
 
