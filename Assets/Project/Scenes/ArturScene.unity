@@ -1859,7 +1859,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 930e939e9def94ef69711892eaa9af81, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c3ac60eaa4d78d84d85e0e45cd645345, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7612,14 +7612,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1509777675318641418, guid: bf585dc98994897449abe45f17876f75, type: 3}
+      propertyPath: interactionButton
+      value: 
+      objectReference: {fileID: 2005328454}
     - target: {fileID: 4762364427674338956, guid: bf585dc98994897449abe45f17876f75, type: 3}
       propertyPath: 'm_ObjectPrefabs.Array.data[0]'
       value: 
-      objectReference: {fileID: 1510909735354945032, guid: 6a1572531e4f4dc43a2e32d3ef5030a8, type: 3}
+      objectReference: {fileID: 192904271035706264, guid: db7b5914cae9dae42a5a3137e5b8e729, type: 3}
     - target: {fileID: 4762364427674338956, guid: bf585dc98994897449abe45f17876f75, type: 3}
       propertyPath: 'm_ObjectPrefabs.Array.data[1]'
       value: 
-      objectReference: {fileID: 754317605494189280, guid: 879d11339dc06ec45821b35d74e7c465, type: 3}
+      objectReference: {fileID: 3278766878486146847, guid: 677a01818265540409b6ed045af8cc17, type: 3}
     - target: {fileID: 6399292906805541166, guid: bf585dc98994897449abe45f17876f75, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7664,7 +7668,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main XR Origin (AR Rig)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4911984855469561741, guid: bf585dc98994897449abe45f17876f75, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
