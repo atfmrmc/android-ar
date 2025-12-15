@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
@@ -12,30 +12,30 @@ public class ARObjectPreviewWithValidation : MonoBehaviour
     public ObjectSpawner objectSpawner;
 
     [Header("UI & Reticle")]
-    public GameObject reticle;           // Reticle dans la scène
+    public GameObject reticle;           // Reticle dans la scï¿½ne
     public Button validateButton;        // Bouton Valider
     public GameObject inventoryUI;       // Panel inventaire
-    public Button[] inventoryButtons;    // Boutons d’objet à sélectionner
+    public Button[] inventoryButtons;    // Boutons dï¿½objet ï¿½ sï¿½lectionner
 
     private GameObject previewObject;
     private List<ARRaycastHit> hits = new List<ARRaycastHit>();
     private GameObject selectedPrefab = null;
-    private GameObject currentPreviewPrefab = null; // Prefab utilisé pour la preview actuelle
+    private GameObject currentPreviewPrefab = null; // Prefab utilisï¿½ pour la preview actuelle
 
     void Start()
     {
-        // Valider désactivé au départ
+        // Valider dï¿½sactivï¿½ au dï¿½part
         if (validateButton != null)
         {
             validateButton.gameObject.SetActive(false);
             validateButton.onClick.AddListener(OnValidateButtonClicked);
         }
 
-        // Inventaire actif au départ
+        // Inventaire actif au dï¿½part
         if (inventoryUI != null)
             inventoryUI.SetActive(true);
 
-        // Associer chaque bouton à la sélection d’un objet
+        // Associer chaque bouton ï¿½ la sï¿½lection dï¿½un objet
         foreach (Button btn in inventoryButtons)
             btn.onClick.AddListener(() => OnSelectInventoryObject(btn));
 
@@ -45,7 +45,7 @@ public class ARObjectPreviewWithValidation : MonoBehaviour
 
     void Update()
     {
-        // Si aucun objet sélectionné, masquer tout
+        // Si aucun objet sï¿½lectionnï¿½, masquer tout
         if (selectedPrefab == null)
         {
             if (previewObject != null)
@@ -68,7 +68,7 @@ public class ARObjectPreviewWithValidation : MonoBehaviour
         {
             Pose hitPose = hits[0].pose;
 
-            // Recréer la preview si le prefab a changé ou si elle n'existe pas
+            // Recrï¿½er la preview si le prefab a changï¿½ ou si elle n'existe pas
             if (previewObject == null || currentPreviewPrefab != selectedPrefab)
             {
                 if (previewObject != null) Destroy(previewObject);
@@ -76,7 +76,7 @@ public class ARObjectPreviewWithValidation : MonoBehaviour
                 previewObject = Instantiate(selectedPrefab);
                 previewObject.name = selectedPrefab.name + "_Preview";
 
-                // Désactiver interactions physiques
+                // Dï¿½sactiver interactions physiques
                 foreach (Collider c in previewObject.GetComponentsInChildren<Collider>())
                     c.enabled = false;
                 foreach (Rigidbody rb in previewObject.GetComponentsInChildren<Rigidbody>())
@@ -116,7 +116,7 @@ public class ARObjectPreviewWithValidation : MonoBehaviour
             if (inventoryUI != null)
                 inventoryUI.SetActive(false);
 
-            // Détruire la preview actuelle pour recréer la nouvelle
+            // Dï¿½truire la preview actuelle pour recrï¿½er la nouvelle
             if (previewObject != null)
             {
                 Destroy(previewObject);
@@ -130,7 +130,7 @@ public class ARObjectPreviewWithValidation : MonoBehaviour
         if (previewObject == null || selectedPrefab == null)
             return;
 
-        // Instancier l'objet final à la position de la preview
+        // Instancier l'objet final ï¿½ la position de la preview
         Instantiate(selectedPrefab, previewObject.transform.position, previewObject.transform.rotation);
 
         // Nettoyer preview
@@ -144,7 +144,7 @@ public class ARObjectPreviewWithValidation : MonoBehaviour
         if (reticle != null)
             reticle.SetActive(false);
 
-        // Inventaire peut réapparaître si besoin
+        // Inventaire peut rï¿½apparaï¿½tre si besoin
         if (inventoryUI != null)
             inventoryUI.SetActive(true);
     }
