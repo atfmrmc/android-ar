@@ -32,10 +32,11 @@ public class objectInteraction : MonoBehaviour
             // Tell me what object is hit
             if (Physics.Raycast(ray, out hit))
             {
+                Debug.Log(hit.collider);
                 if (hit.collider.gameObject.CompareTag("interact"))
                 {
                     print(hit.collider.gameObject.tag);
-                    targetGo = hit.collider.gameObject.transform.parent?.gameObject;
+                    targetGo = hit.collider.gameObject.transform.parent?.gameObject.transform.parent.gameObject;
                     //idTextToPrint = hit.collider.gameObject.GetComponent<Transform>().localPosition.x;
                     interactionButton.SetActive(true);
                 }

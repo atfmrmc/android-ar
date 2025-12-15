@@ -7616,6 +7616,10 @@ PrefabInstance:
       propertyPath: 'm_ObjectPrefabs.Array.data[0]'
       value: 
       objectReference: {fileID: 1510909735354945032, guid: 6a1572531e4f4dc43a2e32d3ef5030a8, type: 3}
+    - target: {fileID: 4762364427674338956, guid: bf585dc98994897449abe45f17876f75, type: 3}
+      propertyPath: 'm_ObjectPrefabs.Array.data[1]'
+      value: 
+      objectReference: {fileID: 754317605494189280, guid: 879d11339dc06ec45821b35d74e7c465, type: 3}
     - target: {fileID: 6399292906805541166, guid: bf585dc98994897449abe45f17876f75, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
