@@ -5932,31 +5932,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1520419809}
   m_CullTransparentMesh: 1
---- !u!1 &1537670183 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6399292905821369745, guid: bf585dc98994897449abe45f17876f75, type: 3}
-  m_PrefabInstance: {fileID: 2094156737}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1537670185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1537670183}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f67156c5853deb42a9fdf2101b8e790, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  arCamera: {fileID: 1537670191}
-  targetGo: {fileID: 0}
-  interactionButton: {fileID: 2005328454}
---- !u!20 &1537670191 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 6399292905821369743, guid: bf585dc98994897449abe45f17876f75, type: 3}
-  m_PrefabInstance: {fileID: 2094156737}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1542672740
 GameObject:
   m_ObjectHideFlags: 0
@@ -7087,7 +7062,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64340e47b10c92a4db063abf730fd1cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraInformation: {fileID: 1537670185}
+  cameraInformation: {fileID: 0}
   UiPanelInformation: {fileID: 5473352538929955776, guid: 2bfa8bf6a0f58534a806850fc823d4b2, type: 3}
 --- !u!114 &2005328457
 MonoBehaviour:
@@ -7612,6 +7587,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1148218030977387276, guid: bf585dc98994897449abe45f17876f75, type: 3}
+      propertyPath: interactionButton
+      value: 
+      objectReference: {fileID: 2005328454}
     - target: {fileID: 1509777675318641418, guid: bf585dc98994897449abe45f17876f75, type: 3}
       propertyPath: interactionButton
       value: 
@@ -7670,12 +7649,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4911984855469561741, guid: bf585dc98994897449abe45f17876f75, type: 3}
+    - {fileID: 1509777675318641418, guid: bf585dc98994897449abe45f17876f75, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6399292905821369745, guid: bf585dc98994897449abe45f17876f75, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1537670185}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bf585dc98994897449abe45f17876f75, type: 3}
 --- !u!1 &2099970465
 GameObject:
