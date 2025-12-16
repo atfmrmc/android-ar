@@ -6,14 +6,11 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/1.Hicham/SampleSceneHich.unity
-    guid: e18f4f826a2da83469008055df8e2db8
-  - enabled: 1
-    path: Assets/Scenes/WelcomeScene.unity
+    path: Assets/Project/Scenes/WelcomeScene.unity
     guid: f6a6dccf8eaabfa47971422dd5a6afe3
   - enabled: 1
-    path: Assets/Scenes/ArturScene.unity
-    guid: cbd801d0bafffeb4bb2972b7d9b68111
+    path: Assets/Project/Scenes/ArScene.unity
+    guid: 52ebc15e775c7a04d82d202b7f9e210a
   m_configObjects:
     UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 6ee72d15cf39dd748a13eac57397b9af, type: 2}
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 0465d33c6aee55f44b0237db8b0e0259, type: 2}
