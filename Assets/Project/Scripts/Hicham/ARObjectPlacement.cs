@@ -11,8 +11,7 @@ public class ARObjectPlacement : MonoBehaviour
     public ARRaycastManager raycastManager;
     public ObjectSpawner objectSpawner;
 
-    [Header("Reticle & UI")]
-    public GameObject reticle;
+    [Header("UI")]
     public Button validateButton;
     public GameObject objectMenuUI;
     public Button openMenuButton;
@@ -26,6 +25,7 @@ public class ARObjectPlacement : MonoBehaviour
     private GameObject previewObject;
     private List<ARRaycastHit> hits = new List<ARRaycastHit>();
     private GameObject selectedPrefab = null;
+    private GameObject lastPlacedObject = null;
 
     void Start()
     {
@@ -36,9 +36,11 @@ public class ARObjectPlacement : MonoBehaviour
             if (anim != null) anim.Play("Open");
         }
 
-        if (reticle != null) reticle.SetActive(false);
-        if (validateButton != null) validateButton.gameObject.SetActive(false);
-        if (openMenuButton != null) openMenuButton.gameObject.SetActive(false);
+        if (validateButton != null)
+            validateButton.gameObject.SetActive(false);
+
+        if (openMenuButton != null)
+            openMenuButton.gameObject.SetActive(false);
 
         foreach (Button btn in inventoryButtons)
             btn.onClick.AddListener(() => OnSelectInventoryObject(btn));
@@ -64,9 +66,21 @@ public class ARObjectPlacement : MonoBehaviour
 
     void UpdatePreview()
     {
-        Vector2 screenCenter = new Vector2(Screen.width / 2f, Screen.height / 2f);
+        Vector2 inputPos;
+#if UNITY_EDITOR
+        inputPos = Input.mousePosition;
+#else
+        if (Input.touchCount > 0)
+        {
+            inputPos = Input.GetTouch(0).position;
+        }
+        else
+        {
+            inputPos = new Vector2(Screen.width / 2f, Screen.height / 2f);
+        }
+#endif
 
-        if (raycastManager.Raycast(screenCenter, hits, TrackableType.PlaneWithinPolygon))
+        if (raycastManager.Raycast(inputPos, hits, TrackableType.PlaneWithinPolygon))
         {
             Pose hitPose = hits[0].pose;
 
@@ -81,7 +95,7 @@ public class ARObjectPlacement : MonoBehaviour
                 foreach (Rigidbody rb in previewObject.GetComponentsInChildren<Rigidbody>())
                     rb.isKinematic = true;
 
-                // Ajoute la manipulation
+                // Ajoute le script de manipulation preview
                 ARPreviewManipulation manipulator = previewObject.AddComponent<ARPreviewManipulation>();
                 manipulator.rotationSpeed = rotationSpeed;
                 manipulator.minScale = minScale;
@@ -91,14 +105,36 @@ public class ARObjectPlacement : MonoBehaviour
             previewObject.transform.SetPositionAndRotation(hitPose.position, hitPose.rotation);
             previewObject.SetActive(true);
 
-            if (!reticle.activeSelf) reticle.SetActive(true);
-            if (validateButton != null && !validateButton.gameObject.activeSelf)
-                validateButton.gameObject.SetActive(true);
+            // Détecte le touch ou clic pour placer l'objet
+            bool placeObject = false;
+#if UNITY_EDITOR
+            if (Input.GetMouseButtonDown(0))
+                placeObject = true;
+#else
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+                placeObject = true;
+#endif
+
+            if (placeObject)
+            {
+                foreach (Collider c in previewObject.GetComponentsInChildren<Collider>())
+                    c.enabled = true;
+
+                Rigidbody rb = previewObject.GetComponent<Rigidbody>();
+                if (rb != null) rb.isKinematic = false;
+
+                previewObject.name = previewObject.name.Replace("_Preview", "");
+                lastPlacedObject = previewObject;
+                previewObject = null;
+
+                if (validateButton != null) validateButton.gameObject.SetActive(true);
+                selectedPrefab = null;
+            }
         }
         else
         {
-            if (previewObject != null) previewObject.SetActive(false);
-            if (reticle.activeSelf) reticle.SetActive(false);
+            if (previewObject != null)
+                previewObject.SetActive(false);
         }
     }
 
@@ -122,29 +158,9 @@ public class ARObjectPlacement : MonoBehaviour
 
     void OnValidateButtonClicked()
     {
-        if (previewObject == null) return;
-
-        // Supprime le script de manipulation et restaure l'apparence
-        ARPreviewManipulation manipulator = previewObject.GetComponent<ARPreviewManipulation>();
-        if (manipulator != null)
-        {
-            manipulator.RestoreOriginalMaterials();
-            Destroy(manipulator);
-        }
-
-        // Active colliders et Rigidbody
-        foreach (Collider c in previewObject.GetComponentsInChildren<Collider>())
-            c.enabled = true;
-        Rigidbody rb = previewObject.GetComponent<Rigidbody>();
-        if (rb != null) rb.isKinematic = false;
-
-        // La preview devient l'objet final
-        previewObject.name = previewObject.name.Replace("_Preview", "");
-        previewObject = null;
+        if (lastPlacedObject == null) return;
 
         if (validateButton != null) validateButton.gameObject.SetActive(false);
-        if (!reticle.activeSelf) reticle.SetActive(true);
-
-        selectedPrefab = null;
+        lastPlacedObject = null;
     }
 }

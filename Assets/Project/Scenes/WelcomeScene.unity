@@ -423,6 +423,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4993707840610593575, guid: 3b834a062123339448fbde3b07af3cb9, type: 3}
+      propertyPath: nextSceneName
+      value: SampleSceneHich
+      objectReference: {fileID: 0}
     - target: {fileID: 5560279142062605372, guid: 3b834a062123339448fbde3b07af3cb9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

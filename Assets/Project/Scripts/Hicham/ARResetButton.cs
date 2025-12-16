@@ -4,21 +4,20 @@ using UnityEngine.XR.ARFoundation;
 
 public class ARResetButton : MonoBehaviour
 {
-    public ARSession arSession; // référence au ARSession de la scène
+    public ARSession arSession; // rï¿½fï¿½rence au ARSession de la scï¿½ne
 
     /// <summary>
-    /// Réinitialise la scène AR complètement
+    /// Rï¿½initialise la scï¿½ne AR complï¿½tement
     /// </summary>
     public void ResetARScene()
     {
-        // Option 1 : reset ARSession pour repartir à zéro
+        // Option 1 : reset ARSession pour repartir ï¿½ zï¿½ro
         if (arSession != null)
         {
             arSession.Reset();
-            Debug.Log("Incroyable ça, la scene est reset !");
         }
 
-        // Option 2 : recharger complètement la scène pour repartir propre
+        // Option 2 : recharger complï¿½tement la scï¿½ne pour repartir propre
         Scene currentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(currentScene.name);
     }

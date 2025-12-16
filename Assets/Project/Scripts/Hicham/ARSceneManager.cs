@@ -1,30 +1,27 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
 public class ARSceneManager : MonoBehaviour
 {
     [Header("UI")]
     public Button deleteAllButton;
 
-    [Header("Spawner")]
-    public ObjectSpawner objectSpawner;
-
     void Start()
     {
         if (deleteAllButton != null)
-            deleteAllButton.onClick.AddListener(DeleteAllSpawnedObjects);
+            deleteAllButton.onClick.AddListener(DeleteAllPlacedObjects);
     }
 
-    void DeleteAllSpawnedObjects()
+    public void DeleteAllPlacedObjects()
     {
-        if (objectSpawner == null) return;
+        // R√©cup√®re tous les objets avec le tag "PlacedObject"
+        GameObject[] placedObjects = GameObject.FindGameObjectsWithTag("PlacedObject");
 
-        foreach (Transform child in objectSpawner.transform)
+        foreach (GameObject obj in placedObjects)
         {
-            Destroy(child.gameObject);
+            Destroy(obj);
         }
 
-        Debug.Log("Tous les objets spawnÈs ont ÈtÈ supprimÈs !");
+        Debug.Log("Tous les objets pos√©s ont √©t√© supprim√©s !");
     }
 }
