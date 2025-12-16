@@ -28,7 +28,7 @@ public class objectInteraction : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("Interact"))
                 {
-                    targetGo = hit.collider.gameObject.transform.parent?.gameObject; //.transform.parent.gameObject;
+                    targetGo = hit.collider.gameObject.transform.parent?.gameObject;
                     //idTextToPrint = hit.collider.gameObject.GetComponent<Transform>().localPosition.x;
                     interactionButton.SetActive(true);
                 }

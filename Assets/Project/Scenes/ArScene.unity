@@ -119,17 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &189086474 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7043140470425586434, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
-  m_PrefabInstance: {fileID: 8134742461533585514}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &549461410 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3734369311978531305, guid: bf585dc98994897449abe45f17876f75, type: 3}
@@ -139,6 +128,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f67156c5853deb42a9fdf2101b8e790, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &549461415 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6399292905821369741, guid: bf585dc98994897449abe45f17876f75, type: 3}
+  m_PrefabInstance: {fileID: 2094156737}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4966719baa26e4b0e8231a24d9bd491a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &702413256
@@ -223,6 +223,7 @@ GameObject:
   - component: {fileID: 1075000276}
   - component: {fileID: 1075000275}
   - component: {fileID: 1075000277}
+  - component: {fileID: 1075000278}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -333,6 +334,20 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!114 &1075000278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1075000274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53acb801757f10d4ba4118595dd6e2c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CameraManager: {fileID: 549461415}
+  m_Arrow: {fileID: 0}
 --- !u!114 &1319744689 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2506893855800582502, guid: bf585dc98994897449abe45f17876f75, type: 3}
@@ -656,10 +671,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8565738560720022810, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
-      propertyPath: m_CreateButton
-      value: 
-      objectReference: {fileID: 189086474}
     - target: {fileID: 8565738560720022810, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
       propertyPath: m_PlaneManager
       value: 

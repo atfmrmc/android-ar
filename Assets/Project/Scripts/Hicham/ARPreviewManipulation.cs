@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public class ARPreviewManipulator : MonoBehaviour
+public class ARPreviewManipulation : MonoBehaviour
 {
     [Header("Manipulation Settings")]
-    public float rotationSpeed = 0.2f;
+    public float rotationSpeed = 0.5f;
     public float minScale = 0.5f;
     public float maxScale = 3f;
 
@@ -27,11 +27,9 @@ public class ARPreviewManipulator : MonoBehaviour
     {
         if (Input.touchCount == 1)
         {
-            // Si on était en train de scale, on arrête
-            isScaling = false;
             HandleRotation();
         }
-        else if (Input.touchCount == 2)
+        else if (Input.touchCount >= 2)
         {
             HandleScale();
         }
@@ -44,46 +42,34 @@ public class ARPreviewManipulator : MonoBehaviour
     void HandleRotation()
     {
         Touch touch = Input.GetTouch(0);
-
         if (touch.phase == TouchPhase.Moved)
         {
             Vector2 delta = touch.deltaPosition;
 
-            // Rotation autour de Y monde (horizontal)
             transform.Rotate(Vector3.up, delta.x * rotationSpeed, Space.World);
-
-            // Rotation autour de X caméra (vertical)
-            if (Camera.main != null)
-                transform.Rotate(Camera.main.transform.right, -delta.y * rotationSpeed, Space.World);
+            transform.Rotate(Camera.main.transform.right, -delta.y * rotationSpeed, Space.World);
         }
     }
 
     void HandleScale()
     {
-        Touch t0 = Input.GetTouch(0);
-        Touch t1 = Input.GetTouch(1);
+        Touch touch0 = Input.GetTouch(0);
+        Touch touch1 = Input.GetTouch(1);
 
-        if (!isScaling)
+        if (touch0.phase == TouchPhase.Began || touch1.phase == TouchPhase.Began)
         {
-            // Début du pinch
-            initialPinchDistance = Vector2.Distance(t0.position, t1.position);
+            initialPinchDistance = Vector2.Distance(touch0.position, touch1.position);
             initialScale = transform.localScale;
             isScaling = true;
-            return;
         }
+        else if ((touch0.phase == TouchPhase.Moved || touch1.phase == TouchPhase.Moved) && isScaling)
+        {
+            float currentPinchDistance = Vector2.Distance(touch0.position, touch1.position);
+            float scaleFactor = currentPinchDistance / initialPinchDistance;
 
-        float currentDistance = Vector2.Distance(t0.position, t1.position);
-        if (Mathf.Approximately(initialPinchDistance, 0)) return;
-
-        float scaleFactor = currentDistance / initialPinchDistance;
-        Vector3 targetScale = initialScale * scaleFactor;
-
-        // Clamp par axe
-        targetScale.x = Mathf.Clamp(targetScale.x, minScale, maxScale);
-        targetScale.y = Mathf.Clamp(targetScale.y, minScale, maxScale);
-        targetScale.z = Mathf.Clamp(targetScale.z, minScale, maxScale);
-
-        transform.localScale = targetScale;
+            float clamped = Mathf.Clamp(initialScale.x * scaleFactor, minScale, maxScale);
+            transform.localScale = Vector3.one * clamped;
+        }
     }
 
     void ApplyPreviewEffect()
@@ -94,21 +80,18 @@ public class ARPreviewManipulator : MonoBehaviour
 
         for (int i = 0; i < renderers.Length; i++)
         {
-            if (renderers[i].material != null)
+            originalMaterials[i] = renderers[i].material;
+
+            Material previewMat = new Material(renderers[i].material);
+            if (previewMat.HasProperty("_Color"))
             {
-                originalMaterials[i] = renderers[i].material;
-
-                Material previewMat = new Material(renderers[i].material);
-                if (previewMat.HasProperty("_Color"))
-                {
-                    Color c = previewMat.color;
-                    c.a = previewColor.a;
-                    previewMat.color = c;
-                }
-
-                previewMaterials[i] = previewMat;
-                renderers[i].material = previewMat;
+                Color c = previewMat.color;
+                c.a = previewColor.a;
+                previewMat.color = c;
             }
+
+            previewMaterials[i] = previewMat;
+            renderers[i].material = previewMat;
         }
     }
 

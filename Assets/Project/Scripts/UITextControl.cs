@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class UITextControl : MonoBehaviour
 {
@@ -17,7 +18,10 @@ public class UITextControl : MonoBehaviour
             transform.LookAt(transform.position + cam.transform.forward);
         }
         Renderer r = GetComponentInParent<Renderer>();
-        transform.localPosition = new Vector3(0, r.bounds.size.y + 0.2f, 0);
+        if (r != null)
+        {
+            transform.localPosition = new Vector3(0, r.bounds.size.y + 0.2f, 0);
+        }
     }
 
     private void Update()

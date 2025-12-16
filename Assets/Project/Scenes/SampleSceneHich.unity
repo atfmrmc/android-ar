@@ -679,7 +679,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &212473301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3655,7 +3655,7 @@ MonoBehaviour:
   rotationSpeed: 9.34
   minScale: 3.71
   maxScale: 3
-  previewColor: {r: 0.9716981, g: 0.041251317, b: 0.041251317, a: 0.7}
+  previewColor: {r: 1, g: 1, b: 1, a: 0.7}
 --- !u!4 &902806533
 Transform:
   m_ObjectHideFlags: 0
@@ -7251,7 +7251,14 @@ MonoBehaviour:
   validateButton: {fileID: 1130907899}
   objectMenuUI: {fileID: 72989974}
   openMenuButton: {fileID: 1059051469}
-  inventoryButtons: []
+  inventoryButtons:
+  - {fileID: 817813618}
+  - {fileID: 274237799}
+  - {fileID: 2116170433}
+  - {fileID: 145380980}
+  - {fileID: 1441072526}
+  - {fileID: 1088608627}
+  - {fileID: 232260063}
   rotationSpeed: 0.4
   minScale: 0.5
   maxScale: 3
