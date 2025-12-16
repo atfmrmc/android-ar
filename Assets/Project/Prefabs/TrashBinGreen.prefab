@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TrashBinGreen
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ee94482ce829c6344b9d17bbeee10377, type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -63,6 +67,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ee94482ce829c6344b9d17bbeee10377, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4408603347583842765}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ee94482ce829c6344b9d17bbeee10377, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 318197049433500983}
   m_SourcePrefab: {fileID: 100100000, guid: ee94482ce829c6344b9d17bbeee10377, type: 3}
 --- !u!1 &4583132205000216390 stripped
 GameObject:
@@ -84,3 +91,26 @@ MonoBehaviour:
   title: Green Garbage Bin
   description: Garbage Bin in Animal Crossing New Horizons. Available in-game after
     the 1.0.0 update.
+--- !u!114 &318197049433500983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4583132205000216390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b309761041ee54265b7f9a8c0f373dab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ObjectPlaneTranslationMode: 2
+  m_EnablePlaneClassificationFilter: 0
+  m_PlaneClassificationsList: 
+  m_PlaneClassifications: 0
+  m_UseInteractorOrientation: 0
+  m_MinScale: 0.01
+  m_MaxScale: 3
+  m_ScaleSensitivity: 0.75
+  m_Elasticity: 0.15
+  m_EnableElasticBreakLimit: 1
+  m_ElasticBreakLimit: 0.5

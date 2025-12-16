@@ -10,11 +10,6 @@ public class objectInteraction : MonoBehaviour
 
     [SerializeField]
     public GameObject interactionButton;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -27,15 +22,12 @@ public class objectInteraction : MonoBehaviour
         {
             // Echo the Raycast transform
             Vector3 forward = transform.TransformDirection(Vector3.forward) * 50;
-            Debug.DrawRay(transform.position, forward, Color.green);
 
             // Tell me what object is hit
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.collider);
-                if (hit.collider.gameObject.CompareTag("interact"))
+                if (hit.collider.gameObject.CompareTag("Interact"))
                 {
-                    print(hit.collider.gameObject.tag);
                     targetGo = hit.collider.gameObject.transform.parent?.gameObject.transform.parent.gameObject;
                     //idTextToPrint = hit.collider.gameObject.GetComponent<Transform>().localPosition.x;
                     interactionButton.SetActive(true);

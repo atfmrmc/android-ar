@@ -9,13 +9,6 @@ public class UITextControl : MonoBehaviour
     [SerializeField]
     TextMeshPro description;
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-       
-    }
-
     void LateUpdate()
     {
         Camera cam = Camera.main;
