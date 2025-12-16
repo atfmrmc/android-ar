@@ -60,6 +60,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Interact
       objectReference: {fileID: 0}
+    - target: {fileID: 5528860797864257434, guid: 8e968fa9b0950b747b7ede87511a2e86, type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 7036213049465896255, guid: 8e968fa9b0950b747b7ede87511a2e86, type: 3}
+      propertyPath: m_TagString
+      value: Interact
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
