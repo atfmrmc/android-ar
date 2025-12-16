@@ -10,6 +10,7 @@ Library: C:\Users\atfmr\Documents\git-repos\ESGI\M1T1\android-ar\Temp\BurstOutpu
 --target-framework=NetFramework
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Users\atfmr\Documents\git-repos\ESGI\M1T1\android-ar\Temp\Burst
+--debug=LineOnly
 --key-folder=C:/Program Files/Unity/Hub/Editor/6000.0.62f1/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=C:\Users\atfmr\Documents\git-repos\ESGI\M1T1\android-ar\Library\Burst
 --output=C:\Users\atfmr\Documents\git-repos\ESGI\M1T1\android-ar\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated
@@ -83,6 +84,7 @@ Library: C:\Users\atfmr\Documents\git-repos\ESGI\M1T1\android-ar\Temp\BurstOutpu
 --float-mode=Fast
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Users\atfmr\Documents\git-repos\ESGI\M1T1\android-ar\Temp\Burst
+--debug=LineOnly
 --key-folder=C:/Program Files/Unity/Hub/Editor/6000.0.62f1/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=C:\Users\atfmr\Documents\git-repos\ESGI\M1T1\android-ar\Library\Burst
 --output=C:\Users\atfmr\Documents\git-repos\ESGI\M1T1\android-ar\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated
@@ -101,6 +103,7 @@ Library: C:\Users\atfmr\Documents\git-repos\ESGI\M1T1\android-ar\Temp\BurstOutpu
 --target-framework=NetFramework
 --generate-link-xml=Temp\burst.link.xml
 --temp-folder=C:\Users\atfmr\Documents\git-repos\ESGI\M1T1\android-ar\Temp\Burst
+--debug=LineOnly
 --key-folder=C:/Program Files/Unity/Hub/Editor/6000.0.62f1/Editor/Data/PlaybackEngines/AndroidPlayer
 --decode-folder=C:\Users\atfmr\Documents\git-repos\ESGI\M1T1\android-ar\Library\Burst
 --output=C:\Users\atfmr\Documents\git-repos\ESGI\M1T1\android-ar\Temp\BurstOutput\tempburstlibs\arm64-v8a\lib_burst_generated
