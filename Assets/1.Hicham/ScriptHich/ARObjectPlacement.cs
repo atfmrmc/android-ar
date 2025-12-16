@@ -3,8 +3,6 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.UI;
-using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.XR.Interaction.Toolkit.Interactables;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
 public class ARObjectPlacement : MonoBehaviour
@@ -21,22 +19,16 @@ public class ARObjectPlacement : MonoBehaviour
     public Button[] inventoryButtons;
 
     [Header("Preview Manipulation Settings")]
-    [Tooltip("Sensibilit� de la rotation")]
     public float rotationSpeed = 0.5f;
-    [Tooltip("Scale minimum")]
     public float minScale = 0.5f;
-    [Tooltip("Scale maximum")]
     public float maxScale = 3f;
 
     private GameObject previewObject;
     private List<ARRaycastHit> hits = new List<ARRaycastHit>();
-    private bool waitingForValidation = false;
-
     private GameObject selectedPrefab = null;
 
     void Start()
     {
-        // Menu visible au d�marrage
         if (objectMenuUI != null)
         {
             objectMenuUI.SetActive(true);
@@ -48,7 +40,6 @@ public class ARObjectPlacement : MonoBehaviour
         if (validateButton != null) validateButton.gameObject.SetActive(false);
         if (openMenuButton != null) openMenuButton.gameObject.SetActive(false);
 
-        // Inventaire
         foreach (Button btn in inventoryButtons)
             btn.onClick.AddListener(() => OnSelectInventoryObject(btn));
 
@@ -60,7 +51,6 @@ public class ARObjectPlacement : MonoBehaviour
             {
                 if (objectMenuUI != null) objectMenuUI.SetActive(true);
                 openMenuButton.gameObject.SetActive(false);
-
                 Animator anim = objectMenuUI.GetComponent<Animator>();
                 if (anim != null) anim.Play("Open");
             });
@@ -68,13 +58,8 @@ public class ARObjectPlacement : MonoBehaviour
 
     void Update()
     {
-        // Si aucun objet s�lectionn�, rien ne faire
-        if (selectedPrefab == null)
-            return;
-
-        // Mise � jour de la preview
-        if (!waitingForValidation)
-            UpdatePreview();
+        if (selectedPrefab == null) return;
+        UpdatePreview();
     }
 
     void UpdatePreview()
@@ -90,18 +75,19 @@ public class ARObjectPlacement : MonoBehaviour
                 previewObject = Instantiate(selectedPrefab);
                 previewObject.name = selectedPrefab.name + "_Preview";
 
-                // D�sactiver collisions physiques initialement
                 foreach (Collider c in previewObject.GetComponentsInChildren<Collider>())
                     c.enabled = false;
 
-                // Ajouter le script de manipulation
-                ARPreviewManipulator manipulator = previewObject.AddComponent<ARPreviewManipulator>();
+                foreach (Rigidbody rb in previewObject.GetComponentsInChildren<Rigidbody>())
+                    rb.isKinematic = true;
+
+                // Ajoute la manipulation
+                ARPreviewManipulation manipulator = previewObject.AddComponent<ARPreviewManipulation>();
                 manipulator.rotationSpeed = rotationSpeed;
                 manipulator.minScale = minScale;
                 manipulator.maxScale = maxScale;
             }
 
-            // Position + rotation au centre de l'�cran
             previewObject.transform.SetPositionAndRotation(hitPose.position, hitPose.rotation);
             previewObject.SetActive(true);
 
@@ -126,8 +112,11 @@ public class ARObjectPlacement : MonoBehaviour
             if (objectMenuUI != null) objectMenuUI.SetActive(false);
             if (openMenuButton != null) openMenuButton.gameObject.SetActive(true);
 
-            if (previewObject != null) Destroy(previewObject);
-            previewObject = null;
+            if (previewObject != null)
+            {
+                Destroy(previewObject);
+                previewObject = null;
+            }
         }
     }
 
@@ -135,30 +124,27 @@ public class ARObjectPlacement : MonoBehaviour
     {
         if (previewObject == null) return;
 
-        // Restaurer les mat�riaux et supprimer le manipulateur
-        ARPreviewManipulator manipulator = previewObject.GetComponent<ARPreviewManipulator>();
+        // Supprime le script de manipulation et restaure l'apparence
+        ARPreviewManipulation manipulator = previewObject.GetComponent<ARPreviewManipulation>();
         if (manipulator != null)
         {
             manipulator.RestoreOriginalMaterials();
             Destroy(manipulator);
         }
 
-        // Activer colliders pour l'objet final
+        // Active colliders et Rigidbody
         foreach (Collider c in previewObject.GetComponentsInChildren<Collider>())
             c.enabled = true;
-
         Rigidbody rb = previewObject.GetComponent<Rigidbody>();
         if (rb != null) rb.isKinematic = false;
 
-        // Laisser l'objet tel quel et r�initialiser
+        // La preview devient l'objet final
         previewObject.name = previewObject.name.Replace("_Preview", "");
         previewObject = null;
-        waitingForValidation = false;
 
         if (validateButton != null) validateButton.gameObject.SetActive(false);
         if (!reticle.activeSelf) reticle.SetActive(true);
 
-        // Plus d'objet s�lectionn�
         selectedPrefab = null;
     }
 }
