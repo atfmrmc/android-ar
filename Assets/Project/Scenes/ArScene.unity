@@ -474,14 +474,6 @@ PrefabInstance:
       propertyPath: interactionButton
       value: 
       objectReference: {fileID: 2005328454}
-    - target: {fileID: 4762364427674338956, guid: bf585dc98994897449abe45f17876f75, type: 3}
-      propertyPath: 'm_ObjectPrefabs.Array.data[0]'
-      value: 
-      objectReference: {fileID: 613292779795284151, guid: 7012b57d7e78d48488757333d94cd304, type: 3}
-    - target: {fileID: 4762364427674338956, guid: bf585dc98994897449abe45f17876f75, type: 3}
-      propertyPath: 'm_ObjectPrefabs.Array.data[1]'
-      value: 
-      objectReference: {fileID: 4745772447511721253, guid: f917e2e468220cc408d27ab74181689c, type: 3}
     - target: {fileID: 6399292906805541166, guid: bf585dc98994897449abe45f17876f75, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -521,6 +513,14 @@ PrefabInstance:
     - target: {fileID: 6399292906805541166, guid: bf585dc98994897449abe45f17876f75, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399292906805541170, guid: bf585dc98994897449abe45f17876f75, type: 3}
+      propertyPath: <trackablesChanged>k__BackingField.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6399292906805541170, guid: bf585dc98994897449abe45f17876f75, type: 3}
+      propertyPath: <trackablesChanged>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6399292906805541171, guid: bf585dc98994897449abe45f17876f75, type: 3}
       propertyPath: m_Name
@@ -635,42 +635,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5535538831452618969, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
-      propertyPath: m_text
-      value: "Bienvenue dans l'exposition en realit\xE9 virtuel d'animal crossing"
-      objectReference: {fileID: 0}
-    - target: {fileID: 5535538831452618969, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
-      propertyPath: m_fontStyle
+    - target: {fileID: 6939684359803546310, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5535538831452618969, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
-      propertyPath: m_isRightToLeft
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5535538831452618969, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
-      propertyPath: m_TextWrappingMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5535538831452618969, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
-      propertyPath: m_TextStyleHashCode
-      value: -1183493901
-      objectReference: {fileID: 0}
-    - target: {fileID: 6771604326859673967, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
-      propertyPath: m_Color.a
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7717050803998280541, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 120
-      objectReference: {fileID: 0}
-    - target: {fileID: 7717050803998280541, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 7717050803998280541, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 7283988832318646703, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
+      propertyPath: arSession
+      value: 
+      objectReference: {fileID: 702413258}
     - target: {fileID: 8565738560720022810, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
       propertyPath: m_PlaneManager
       value: 
