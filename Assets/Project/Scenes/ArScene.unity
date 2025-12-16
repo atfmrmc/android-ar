@@ -528,6 +528,10 @@ PrefabInstance:
       propertyPath: m_ObjectSpawner
       value: 
       objectReference: {fileID: 1628305874}
+    - target: {fileID: 2025599314172065266, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -102
+      objectReference: {fileID: 0}
     - target: {fileID: 2783838470352386289, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
       propertyPath: cameraInformation
       value: 
