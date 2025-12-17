@@ -331,6 +331,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7396278978564332023, guid: eb9104ef66b7305468adb3697fdeed5e, type: 3}
+      propertyPath: m_Renderer
+      value: 
+      objectReference: {fileID: 6184808290372986443}
     - target: {fileID: 8634317094661461186, guid: eb9104ef66b7305468adb3697fdeed5e, type: 3}
       propertyPath: m_InteractableSource
       value: 
@@ -427,11 +431,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ee94482ce829c6344b9d17bbeee10377, type: 3}
       propertyPath: m_Name
-      value: TrashBin
+      value: Visuals
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ee94482ce829c6344b9d17bbeee10377, type: 3}
       propertyPath: m_TagString
       value: Interact
+      objectReference: {fileID: 0}
+    - target: {fileID: 4221411186673086820, guid: ee94482ce829c6344b9d17bbeee10377, type: 3}
+      propertyPath: m_Name
+      value: Mesh
       objectReference: {fileID: 0}
     - target: {fileID: 5528860797864257434, guid: ee94482ce829c6344b9d17bbeee10377, type: 3}
       propertyPath: m_TagString
@@ -449,6 +457,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6980819115660957364}
   m_SourcePrefab: {fileID: 100100000, guid: ee94482ce829c6344b9d17bbeee10377, type: 3}
+--- !u!23 &6184808290372986443 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3695345523652512180, guid: ee94482ce829c6344b9d17bbeee10377, type: 3}
+  m_PrefabInstance: {fileID: 7393885241274920959}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6996027623785400340 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ee94482ce829c6344b9d17bbeee10377, type: 3}
