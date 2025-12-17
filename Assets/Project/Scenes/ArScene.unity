@@ -373,10 +373,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 114876959}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 22.400005, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 341.15, y: -34}
+  m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1164787737
 MonoBehaviour:
@@ -472,7 +472,7 @@ MonoBehaviour:
   m_BypassUIToolkitEvents: 1
   m_ActiveInputMode: 1
   m_EnableXRInput: 1
-  m_EnableMouseInput: 1
+  m_EnableMouseInput: 0
   m_EnableTouchInput: 1
   m_EnableGamepadInput: 0
   m_EnableJoystickInput: 0
@@ -777,6 +777,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 288.66663
       objectReference: {fileID: 0}
+    - target: {fileID: 2291118747186867553, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2783838470352386289, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
       propertyPath: cameraInformation
       value: 
@@ -828,6 +832,14 @@ PrefabInstance:
     - target: {fileID: 3027681227803943750, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125186586332753123, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3125186586332753123, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
+      propertyPath: m_ReferencePixelsPerUnit
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3335937073060306164, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
       propertyPath: m_AnchorMax.y
@@ -897,9 +909,17 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4252759094894649069, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4273454300869448326, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4521538902830968876, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4981616929945619560, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
       propertyPath: m_IsActive
@@ -1048,6 +1068,10 @@ PrefabInstance:
     - target: {fileID: 6939684359803546310, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7043140470425586434, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7086674434559179712, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1250,6 +1274,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8996860061177603590, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8996860061177603590, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
@@ -1314,7 +1342,7 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8996860061177603590, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
-      insertIndex: 0
+      insertIndex: -1
       addedObject: {fileID: 1164787736}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
