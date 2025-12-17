@@ -26,7 +26,7 @@ public class UITextControl : MonoBehaviour
 
     private void Update()
     {
-        transform.localPosition = Vector3.up * 0.3f;
+        transform.localPosition = Vector3.up * .7f;
 
     }
 

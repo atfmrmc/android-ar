@@ -435,6 +435,17 @@ MonoBehaviour:
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
   m_CancelButton: Cancel
+--- !u!114 &1433600950 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3734369311978531305, guid: bf585dc98994897449abe45f17876f75, type: 3}
+  m_PrefabInstance: {fileID: 2094156737}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f67156c5853deb42a9fdf2101b8e790, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1628305874 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4762364427674338956, guid: bf585dc98994897449abe45f17876f75, type: 3}
@@ -648,6 +659,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2783838470352386289, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
+      propertyPath: cameraInformation
+      value: 
+      objectReference: {fileID: 1433600950}
     - target: {fileID: 3006379288412370428, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -700,6 +715,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3417575756470678216, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
+      propertyPath: arSession
+      value: 
+      objectReference: {fileID: 702413258}
     - target: {fileID: 3467872342585807220, guid: a353998d1a1dcdd4d95a975cbba24e96, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
