@@ -15,7 +15,7 @@ public class objectInteraction : MonoBehaviour
     void Update()
     {
         RaycastHit hit = new RaycastHit();
-        Vector2 mousePos = UnityEngine.InputSystem.Mouse.current.position.ReadValue();
+        Vector2 mousePos = new Vector2(Screen.width / 2, Screen.height / 2);
         Ray ray = arCamera.ScreenPointToRay(mousePos);
 
         if (Physics.Raycast(ray, out hit))
